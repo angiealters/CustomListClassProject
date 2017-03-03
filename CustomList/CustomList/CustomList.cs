@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomList
 {
-    public class CustomList<T> : IEnumerable<T>
+    public class CustomList<T> : IEnumerable
     {
         private T[] myArray;
         private int count;
@@ -20,10 +20,9 @@ namespace CustomList
         }
         public IEnumerator GetEnumerator()
         {
-            yield return count;
-            foreach(var value in myArray)
+            for (int i = 0; i < count; i++)
             {
-                yield return value;
+                yield return myArray[i];
             }
         }
         public T this[int i]
@@ -51,28 +50,41 @@ namespace CustomList
             myArray = newArray;
             count++;
         }
-        public void Remove(T value)
+        public bool Remove(T value)
         {
-
+            T[] newArray = new T[count - 1];
+            bool valueFound = false;
+            int j = 0;
+            for (int i = 0; i < count; i++)
+            {
+                if (myArray[i].Equals(value))
+                {
+                    valueFound = true;                    
+                }
+                else if (!myArray[i].Equals(value))
+                {
+                    newArray[j] = myArray[i];
+                    j++;
+                }
+            }
+            myArray = newArray;
+            count--;
+            return valueFound;
+                        
         }
-        public void AddLists()
+        public override string ToString()
         {
-
+            string result = "";
+            foreach (T value in myArray)
+            {
+                result += value.ToString() + ", ";
+            }
+            return result;
         }
+        //public static AddLists()
+        //{
 
-        public void CustomIterator(T v)
-        {
-            throw new NotImplementedException();
-        }
+        //}
 
-        IEnumerator<T> IEnumerable<T>.GetEnumerator()
-        {
-            return ((IEnumerable<T>)myArray).GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return ((IEnumerable<T>)myArray).GetEnumerator();
-        }
     }
 }

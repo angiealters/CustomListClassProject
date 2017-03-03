@@ -68,76 +68,76 @@ namespace CustomListTest
             Assert.AreEqual(item, custom[1]);
         }
 
-        ////Remove method
-        ////When an item is removed, count should decrease by 1
-        ////When an item is removed, no other items should be removed
-        ////If an item is removed from the middle, index of items after should decrease by 1 
-        //[TestMethod]
-        //public void Remove_RemoveString_CountIsCorrect()
-        //{
-        //    //Arrange
-        //    CustomList<string> custom = new CustomList<string>() { "dog", "cat" };
+        //Remove method
+        //When an item is removed, count should decrease by 1
+        //When an item is removed, no other items should be removed
+        //If an item is removed from the middle, index of items after should decrease by 1 
+        [TestMethod]
+        public void Remove_RemoveString_CountIsCorrect()
+        {
+            //Arrange
+            CustomList<string> custom = new CustomList<string>() { "dog", "cat" };
 
-        //    //Act
-        //    custom.RemoveObject("dog");
+            //Act
+            custom.Remove("dog");
 
-        //    //Assert
-        //    Assert.AreEqual(1, custom.Count);
-        //}
-        //[TestMethod]
-        //public void Remove_RemoveTwoIntItems_CountIsCorrect()
-        //{
-        //    //Arrange
-        //    CustomList<int> custom = new CustomList<int>() { 1, 2, 3 };
+            //Assert
+            Assert.AreEqual(1, custom.Count);
+        }
+        [TestMethod]
+        public void Remove_RemoveTwoIntItems_CountIsCorrect()
+        {
+            //Arrange
+            CustomList<int> custom = new CustomList<int>() { 1, 2, 3 };
 
-        //    //Act
-        //    custom.RemoveObject(1);
-        //    custom.RemoveObject(2);
+            //Act
+            custom.Remove(1);
+            custom.Remove(2);
 
-        //    //Assert
-        //    Assert.AreEqual(1, custom.Count);
-        //}
-        //[TestMethod]
-        //public void Remove_RemoveInt_IntIndexIsCorrect()
-        //{
-        //    //Arrange
-        //    CustomList<int> custom = new CustomList<int>() { 10, 20 };
+            //Assert
+            Assert.AreEqual(1, custom.Count);
+        }
+        [TestMethod]
+        public void Remove_RemoveInt_IntIndexIsCorrect()
+        {
+            //Arrange
+            CustomList<int> custom = new CustomList<int>() { 10, 20 };
 
-        //    //Act
-        //    custom.RemoveObject(10);
+            //Act
+            custom.Remove(10);
 
-        //    //Assert
-        //    Assert.AreEqual(20, custom[0]);
-        //}
-        //[TestMethod]
-        //public void Remove_RemoveTwoStrings_StringIndexIsCorrect()
-        //{
-        //    //Arrange
-        //    CustomList<string> custom = new CustomList<string>() {"dog", "cat", "bird" };
+            //Assert
+            Assert.AreEqual(20, custom[0]);
+        }
+        [TestMethod]
+        public void Remove_RemoveTwoStrings_StringIndexIsCorrect()
+        {
+            //Arrange
+            CustomList<string> custom = new CustomList<string>() { "dog", "cat", "bird" };
 
-        //    //Act
-        //    custom.RemoveObject("dog");
-        //    custom.RemoveObject("cat");
+            //Act
+            custom.Remove("dog");
+            custom.Remove("cat");
 
-        //    //Assert
-        //    Assert.AreEqual("bird", custom[0]);
-        //}
-        //[TestMethod]
-        //public void Remove_RemoveIntFromMiddle_IntIndexCorrect()
-        //{
-        //    //Arrange
-        //    CustomList<int> custom = new CustomList<int>() { 1, 2, 3 };
+            //Assert
+            Assert.AreEqual("bird", custom[0]);
+        }
+        [TestMethod]
+        public void Remove_RemoveIntFromMiddle_IntIndexCorrect()
+        {
+            //Arrange
+            CustomList<int> custom = new CustomList<int>() { 1, 2, 3 };
 
-        //    //Act
-        //    custom.RemoveObject(2);
+            //Act
+            custom.Remove(2);
 
-        //    //Assert
-        //    Assert.AreEqual(3, custom[1]);
-        //}
+            //Assert
+            Assert.AreEqual(3, custom[1]);
+        }
 
-        ////Custom Iterator method
-        ////For each step through the list, one item is displayed
-        ////Iterates through entire list
+        //Custom Iterator method
+        //For each step through the list, one item is displayed
+        //Iterates through entire list
 
         //[TestMethod]
         //public void Iterate_IterateInt_IntIsDisplayed()
@@ -146,7 +146,7 @@ namespace CustomListTest
         //    CustomList<int> custom = new CustomList<int>() { 1 };
 
         //    //Act
-        //    custom.CustomIterator(1);
+        //    custom.GetEnumerator(1);
 
         //    //Assert
         //    Assert.AreEqual(1, custom[0]);
@@ -158,31 +158,44 @@ namespace CustomListTest
         //    CustomList<string> custom = new CustomList<string>() { "dog", "cat", "bird" };
 
         //    //Act
-        //    custom.CustomIterator("bird");
+        //    custom.GetEnumerator("bird");
 
         //    //Assert
         //    Assert.AreEqual("bird", custom[2]);
         //}
 
-        ////ToString method
+        //ToString method
+        //Each item is displayed with a comma after it
+
+        [TestMethod]
+        public void Display_DisplayInts_IntsDisplayedWithCommas()
+        {
+            //Arrange
+            CustomList<int> custom = new CustomList<int>() { 1, 2 };
+
+            //Act
+            custom.ToString();
+
+            //Assert
+            Assert.AreEqual("1, 2, ", ToString());
+        }
 
 
+        //AddLists method
+        //Each item in one list should be added to the end of the other list
+        //No items from either list should be lost or changed
+        [TestMethod]
+        public void AddLists_AddTwoIntLists_ListsAreCombined()
+        {
+            //Arrange
+            CustomList<int> list1 = new CustomList<int> { 1, 2 };
+            CustomList<int> list2 = new CustomList<int> { 3, 4 };
 
-        ////AddLists method
-        ////Each item in one list should be added to the end of the other list
-        ////No items from either list should be lost or changed
-        //[TestMethod]
-        //public void AddLists_AddTwoIntLists_ListsAreCombined()
-        //{
-        //    //Arrange
-        //    CustomList<int> list1 = new CustomList<int> { 1, 2 };
-        //    CustomList<int> list2 = new CustomList<int> { 3, 4 };
-
-        //    //Act
+            //Act
 
 
-        //    //Assert
-        //}
+            //Assert
+        }
 
 
     }
