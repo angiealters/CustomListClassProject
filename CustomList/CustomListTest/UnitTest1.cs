@@ -7,12 +7,6 @@ namespace CustomListTest
     [TestClass]
     public class UnitTest1
     {
-        //Add method
-        //When an item is added, it should be added to the end of the list
-        //When an item is added, the item should be added without any changes
-        //When an item is added, no other item is replaced or lost
-        //When an item is added, Count should increase by 1
-
         [TestMethod]
         public void Add_AddInt_IntIsAdded()
         {
@@ -67,11 +61,6 @@ namespace CustomListTest
             //Assert
             Assert.AreEqual(item, custom[1]);
         }
-
-        //Remove method
-        //When an item is removed, count should decrease by 1
-        //When an item is removed, no other items should be removed
-        //If an item is removed from the middle, index of items after should decrease by 1 
         [TestMethod]
         public void Remove_RemoveString_CountIsCorrect()
         {
@@ -134,39 +123,33 @@ namespace CustomListTest
             //Assert
             Assert.AreEqual(3, custom[1]);
         }
+        [TestMethod]
+        public void Iterate_IterateThroughIntList_IntListIterated()
+        {
+            //Arrange
+            CustomList<int> custom = new CustomList<int>() { 1 };
 
-        //Custom Iterator method
-        //For each step through the list, one item is displayed
-        //Iterates through entire list
+            //Act
+            custom.GetEnumerator();
 
-        //[TestMethod]
-        //public void Iterate_IterateInt_IntIsDisplayed()
-        //{
-        //    //Arrange
-        //    CustomList<int> custom = new CustomList<int>() { 1 };
+            //Assert
+            Assert.AreEqual(1, custom[0]);
+        }
+        [TestMethod]
+        public void Iterate_IterateThroughStringList_StringListIterated()
+        {
+            //Arrange
+            CustomList<string> custom = new CustomList<string>() { "dog", "cat" };
 
-        //    //Act
-        //    custom.GetEnumerator(1);
+            //Act
+            foreach (string value in custom)
+            {
+                custom[1].GetEnumerator();
+            }
 
-        //    //Assert
-        //    Assert.AreEqual(1, custom[0]);
-        //}
-        //[TestMethod]
-        //public void Iterate_IterateString_StringIsDisplayed()
-        //{
-        //    //Arrange
-        //    CustomList<string> custom = new CustomList<string>() { "dog", "cat", "bird" };
-
-        //    //Act
-        //    custom.GetEnumerator("bird");
-
-        //    //Assert
-        //    Assert.AreEqual("bird", custom[2]);
-        //}
-
-        //ToString method
-        //Each item is displayed with a comma after it
-
+            //Assert
+            Assert.AreEqual("cat", custom[1]);
+        }
         [TestMethod]
         public void Display_DisplayInts_IntsDisplayedWithCommas()
         {
@@ -177,26 +160,157 @@ namespace CustomListTest
             custom.ToString();
 
             //Assert
-            Assert.AreEqual("1, 2, ", ToString());
+            Assert.AreEqual("1, 2, ", custom.ToString());
         }
-
-
-        //AddLists method
-        //Each item in one list should be added to the end of the other list
-        //No items from either list should be lost or changed
         [TestMethod]
-        public void AddLists_AddTwoIntLists_ListsAreCombined()
+        public void Display_DisplayStrings_StringsDisplayedWithCommas()
         {
             //Arrange
-            CustomList<int> list1 = new CustomList<int> { 1, 2 };
-            CustomList<int> list2 = new CustomList<int> { 3, 4 };
+            CustomList<string> custom = new CustomList<string>() { "dog", "cat", "bird" };
 
             //Act
-
+            custom.ToString();
 
             //Assert
+            Assert.AreEqual("dog, cat, bird, ", custom.ToString());
         }
+        [TestMethod]
+        public void AddLists_AddIntLists_IntListsAddedTogether()
+        {
+            //Arrange
+            CustomList<int> custom1 = new CustomList<int>() { 1, 2 };
+            CustomList<int> custom2 = new CustomList<int>() { 3, 4 };
+            CustomList<int> custom3 = new CustomList<int>();
 
+            //Act
+            custom3 = custom1 + custom2;
 
+            //Assert
+            Assert.AreEqual(4, custom3.Count);
+        }
+        [TestMethod]
+        public void AddLists_AddIntLists_IntListAddedToEnd()
+        {
+            //Arrange
+            CustomList<int> custom1 = new CustomList<int>() { 1, 2 };
+            CustomList<int> custom2 = new CustomList<int>() { 3, 4 };
+            CustomList<int> custom3 = new CustomList<int>();
+
+            //Act
+            custom3 = custom1 + custom2;
+
+            //Assert
+            Assert.AreEqual(3, custom3[2]);
+        }
+        [TestMethod]
+        public void AddLists_AddStringLists_StringListsAddedTogether()
+        {
+            //Arrange
+            CustomList<string> custom1 = new CustomList<string>() { "one", "two" };
+            CustomList<string> custom2 = new CustomList<string>() { "three", "four", "five" };
+            CustomList<string> custom3 = new CustomList<string>();
+
+            //Act
+            custom3 = custom1 + custom2;
+
+            //Assert
+            Assert.AreEqual(5, custom3.Count);
+        }
+        [TestMethod]
+        public void AddLists_AddStringLists_StringListAddedToEnd()
+        {
+            //Arrange
+            CustomList<string> custom1 = new CustomList<string>() { "one", "two" };
+            CustomList<string> custom2 = new CustomList<string>() { "three", "four", "five" };
+            CustomList<string> custom3 = new CustomList<string>();
+
+            //Act
+            custom3 = custom1 + custom2;
+
+            //Assert
+            Assert.AreEqual("four", custom3[3]);
+        }
+        [TestMethod]
+        public void RemoveList_RemoveIntList_IntListRemoved()
+        {
+            //Arrange
+            CustomList<int> custom1 = new CustomList<int>() { 1, 2, 3 };
+            CustomList<int> custom2 = new CustomList<int>() { 1, 2, 3, 4 };
+
+            //Act
+            custom2 = custom2 - custom1;
+
+            //Assert
+            Assert.AreEqual(1, custom2.Count);
+        }
+        [TestMethod]
+        public void RemoveList_RemoveStringList_StringListRemoved()
+        {
+            //Arrange
+            CustomList<string> custom1 = new CustomList<string>() { "one", "two", "three" };
+            CustomList<string> custom2 = new CustomList<string>() { "one", "two", "three", "four", "five" };
+
+            //Act
+            custom2 = custom2 - custom1;
+
+            //Assert
+            Assert.AreEqual(2, custom2.Count);
+        }
+        [TestMethod]
+        public void ZipLists_ZipIntLists_IntListsZipped()
+        {
+            //Arrange
+            CustomList<int> custom1 = new CustomList<int>() { 1, 2 };
+            CustomList<int> custom2 = new CustomList<int>() { 3, 4 };
+            CustomList<int> custom3 = new CustomList<int>();
+
+            //Act
+            custom3 = custom1.ZipperList(custom1, custom2);
+
+            //Assert
+            Assert.AreEqual(4, custom3.Count);
+        }
+        [TestMethod]
+        public void ZipLists_ZipIntLists_IntAtCorrectIndex()
+        {
+            //Arrange
+            CustomList<int> custom1 = new CustomList<int>() { 1, 2 };
+            CustomList<int> custom2 = new CustomList<int>() { 3, 4 };
+            CustomList<int> custom3 = new CustomList<int>();
+
+            //Act
+            custom3 = custom1.ZipperList(custom1, custom2);
+
+            //Assert
+            Assert.AreEqual(3, custom3[1]);
+        }
+        [TestMethod]
+        public void ZipLists_ZipStringLists_StringListsZipped()
+        {
+            //Arrange
+            CustomList<string> custom1 = new CustomList<string>() { "one", "two", "three" };
+            CustomList<string> custom2 = new CustomList<string>() { "four", "five", "six" };
+            CustomList<string> custom3 = new CustomList<string>();
+
+            //Act
+            custom3 = custom1.ZipperList(custom1, custom2);
+
+            //Assert
+            Assert.AreEqual(6, custom3.Count);
+        }
+        [TestMethod]
+        public void ZipLists_ZipStringLists_StringAtCorrectIndex()
+        {
+            //Arrange
+            CustomList<string> custom1 = new CustomList<string>() { "one", "two", "three" };
+            CustomList<string> custom2 = new CustomList<string>() { "four", "five", "six" };
+            CustomList<string> custom3 = new CustomList<string>();
+
+            //Act
+            custom3 = custom1.ZipperList(custom1, custom2);
+
+            //Assert
+            Assert.AreEqual("two", custom3[2]);
+        }
     }
 }

@@ -43,8 +43,7 @@ namespace CustomList
             T[] newArray = new T[count + 1]; 
             for(int i = 0; i < count; i++)
             {
-                newArray[i] = myArray[i];
-                
+                newArray[i] = myArray[i];                
             }
             newArray[count] = value;
             myArray = newArray;
@@ -81,10 +80,59 @@ namespace CustomList
             }
             return result;
         }
-        //public static AddLists()
-        //{
+        public static CustomList<T> operator +(CustomList<T> list1, CustomList<T> list2)
+        {
+            CustomList<T> list3 = new CustomList<T>();
 
-        //}
+            for (int i = 0; i < list1.count; i++)
+            {
+                list3.Add(list1[i]);
+            }
+            for (int i = 0; i < list2.count; i++)
+            {
+                list3.Add(list2[i]);
+            }
+            return list3;
+        }
+        public static CustomList<T> operator -(CustomList<T> list1, CustomList<T> list2)
+        {
+            if (list1.count > list2.count)
+            {
+                foreach (T value in list2)
+                {
+                    list1.Remove(value);
+                }
+                return list1;
+            }
+            else if (list1.count < list2.count)
+            {
+                foreach (T value in list1)
+                {
+                    list2.Remove(value);
+                }
+                return list2;
+            }
+            return list1;
+        }
+        public CustomList<T> ZipperList(CustomList<T> list1, CustomList<T> list2)
+        {
+            CustomList<T> zipperList = new CustomList<T>();
+            int list = 0;
 
+            if (list1.count == list2.count || list1.count < list2.count)
+            {
+                list = list1.count;
+            }
+            else if (list1.count > list2.count)
+            {
+                list = list2.count;
+            }
+            for (int i = 0; i < list; i++)
+            {
+                zipperList.Add(list1[i]);
+                zipperList.Add(list2[i]);
+            }
+            return zipperList;            
+        }
     }
 }
